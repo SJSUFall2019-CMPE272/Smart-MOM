@@ -70,15 +70,54 @@ class Welcome extends Component {
           metricData: metricData
         })
 
+        scriptLoaded() {
+          window.A.sort();
+        }
 
-        this.setState({});
+        componentWillMount = () => {
+          const data = {}
+          axios.get('http://3.17.152.109:3010/getWelcomeData')
+            .then(response => {
+              console.log("Status Code in 200 : ", response.data.welocomeData);
+              console.log('here 1')
+              let mapd = {}
+              response.data.welocomeData.responseMessage.forEach(element => {
+                console.log('here 1', element)
+                let keyy = element._id;
+                mapd[keyy] = element.count;
+                console.log('Map element', mapd)
+              });
+              let metricData = {}
+              metricData.usersCount = response.data.welocomeData.usersCount;
+              metricData.tCount = response.data.welocomeData.tcount
+              metricData.duration = response.data.welocomeData.duration[0].count
+              console.log('Metric Data element', metricData)
+              this.setState({
+                mapData: mapd,
+                metricData: metricData
+              })
 
-      }).catch(error => {
 
-        console.log('User Login Failure!!')
+              this.setState({});
+
+            }).catch(error => {
+
+              console.log('User Login Failure!!')
 
 
-      })
+            })
+        }
+
+        componentDidMount = () => {
+
+          this.setState({});
+
+        }).catch(error => {
+
+          console.log('User Login Failure!!')
+
+
+        })
   }
 
   componentDidMount = () => {

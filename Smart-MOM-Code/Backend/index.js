@@ -1,5 +1,5 @@
-const port = process.env.PORT || 3001;
-const rooturl = "http://localhost:3000";
+const port = process.env.PORT || 3010;
+const rooturl = "http://localhost:3006";
 //const rooturl = "";
 const multer = require('multer');
 const path = require('path');

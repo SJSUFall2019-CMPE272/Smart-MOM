@@ -88,7 +88,7 @@ class SideNavBar extends Component {
                 localStorage.clear();
                 redirectNav = <Redirect to="/" />;
             }	
-            return(<div>{redirectNav}
+            return(<div>
                 {navbarTag}
                 </div>)
         }
