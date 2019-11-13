@@ -22,7 +22,7 @@ This is a smart assistant to help user go through minutes of meeting in such a w
 Python SpeechRecognition Library, XLNet Pretrained model, Natural Language Processing (NLP), Python, Pytorch, FastAi, React, NodeJS, expressJS, MySQL, MongoDB, AWS, Docker.
 
 
-# Design Thinking
+# Design Thinking:
 ### Manager-Person who usually conducts meetings:<br/>
   Hill:<br/>
     Who? Manager-Person who usually conducts meetings<br/>
