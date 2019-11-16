@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import {BrowserRouter} from 'react-router-dom';
+import Root from './components/Root';
 
 class App extends Component {
   
@@ -9,7 +10,7 @@ class App extends Component {
       //Use Browser Router to route to different pages
       <BrowserRouter>
         <div>
-          {/* App Component Has a Child Component called Main*/}
+        <Root/>
         </div>
       </BrowserRouter>
     );
