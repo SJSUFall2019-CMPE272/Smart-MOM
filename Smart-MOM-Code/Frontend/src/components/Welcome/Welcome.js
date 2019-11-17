@@ -5,6 +5,7 @@ import { Redirect } from 'react-router';
 import './lib/bootstrap/css/bootstrap.min.css';
 import './lib/font-awesome/css/font-awesome.min.css';
 import './css/style.css';
+import CountUp from 'react-countup';
 
 class Welcome extends Component {
 
@@ -46,8 +47,8 @@ class Welcome extends Component {
         // script.async = true;
     
         // document.body.appendChild(script);
-
-        // script.src = require('./lib/counterup/counterup.min.js');
+        // let script = document.createElement("script");
+        // script.src = require('./lib/lockfixed/lockfixed.min.js');
         // script.async = true;
     
         // document.body.appendChild(script);
@@ -138,6 +139,34 @@ class Welcome extends Component {
     render() {
 
         return (<div>
+
+ {/* Headers */}
+ <header id="header" class="fixed-top ">
+    <div class="container">
+
+      <div id="logo" class="pull-left">
+        <a href="index.html"><img src="img/logo-nav.png" alt="" title="" /></a>
+      
+        {/* <h1><a href="#hero">SMART MOM</a></h1> */}
+      </div>
+
+      <nav id="nav-menu-container " class="fixed-top ">
+        <ul class="nav-menu navbar-fixed-top">
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="#team">Team</a></li>
+          <li><a href="#contact">Contact Us</a></li>
+        </ul>
+      </nav>
+     
+      <nav class="nav social-nav pull-right d-none d-lg-inline">
+        <a href="#"><i class="fa fa-twitter"></i></a> <a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i class="fa fa-linkedin"></i></a> <a href="#"><i class="fa fa-envelope"></i></a>
+      </nav>
+    </div>
+  </header>
+
+
      <section class="hero">
     <div class="container text-center">
       <div class="row">
@@ -159,31 +188,7 @@ class Welcome extends Component {
     </div>
 
   </section>
-  {/* Headers */}
-  <header id="header">
-    <div class="container">
-
-      <div id="logo" class="pull-left">
-        <a href="index.html"><img src="img/logo-nav.png" alt="" title="" /></a>
-      
-        {/* <h1><a href="#hero">SMART MOM</a></h1> */}
-      </div>
-
-      <nav id="nav-menu-container">
-        <ul class="nav-menu">
-          <li><a href="#about">About Us</a></li>
-          <li><a href="#features">Features</a></li>
-          <li><a href="#portfolio">Portfolio</a></li>
-          <li><a href="#team">Team</a></li>
-          <li><a href="#contact">Contact Us</a></li>
-        </ul>
-      </nav>
-     
-      <nav class="nav social-nav pull-right d-none d-lg-inline">
-        <a href="#"><i class="fa fa-twitter"></i></a> <a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i class="fa fa-linkedin"></i></a> <a href="#"><i class="fa fa-envelope"></i></a>
-      </nav>
-    </div>
-  </header>
+ 
 {/* About Section */}
   <section class="about" id="about">
     <div class="container text-center">
@@ -201,24 +206,24 @@ class Welcome extends Component {
       <div class="row stats-row">
         <div class="stats-col text-center col-md-3 col-sm-6">
           <div class="circle">
-            <span class="stats-no" data-toggle="counter-up">232</span> Customers
+            <span class="stats-no" data-toggle="counter-up"><CountUp end={210}/></span> Customers
           </div>
         </div>
 
         <div class="stats-col text-center col-md-3 col-sm-6">
           <div class="circle">
-            <span class="stats-no" data-toggle="counter-up">79</span> Released Projects
+            <span class="stats-no" data-toggle="counter-up"><CountUp end={430}/></span> Released Projects
           </div>
         </div>
 
         <div class="stats-col text-center col-md-3 col-sm-6">
           <div class="circle">
-            <span class="stats-no" data-toggle="counter-up">1,463</span> Minutes of Meeting Recorded          </div>
+            <span class="stats-no" data-toggle="counter-up"><CountUp end={50}/></span> Minutes of Meeting Recorded          </div>
         </div>
 
         <div class="stats-col text-center col-md-3 col-sm-6">
           <div class="circle">
-            <span class="stats-no" data-toggle="counter-up">15</span> Hard Workers
+            <span class="stats-no" data-toggle="counter-up"><CountUp end={169}/></span> Hard Workers
           </div>
         </div>
       </div>
