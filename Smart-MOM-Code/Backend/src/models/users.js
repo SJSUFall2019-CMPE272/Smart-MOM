@@ -19,6 +19,9 @@ Users = new Schema({
     },
     imglink: {
         type: String
+    },
+    address: {
+        type: String
     }
 })
 

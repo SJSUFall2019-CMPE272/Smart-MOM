@@ -46,6 +46,7 @@ app.use(function(req, res, next) {
 //Routes
 
 var loginsignup = require('./src/routes/loginsignup');
+var profileupdate = require('./src/routes/profileupdate');
 
 app.use(express.static('./uploads'));
 var basePath = '/';
@@ -56,6 +57,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 //app.use('/user', passport.authenticate('jwt', {session: false}), user);
 
 app.use(basePath, loginsignup);
+app.use(basePath, profileupdate);
 app.use('/uploads', express.static(path.join(__dirname, '/uploads/')));
 
 
