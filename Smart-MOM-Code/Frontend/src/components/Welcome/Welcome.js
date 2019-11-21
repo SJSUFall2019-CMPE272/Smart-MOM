@@ -157,11 +157,12 @@ class Welcome extends Component {
           <li><a href="#portfolio">Portfolio</a></li>
           <li><a href="#team">Team</a></li>
           <li><a href="#contact">Contact Us</a></li>
+          <li><a href="/login"><i class="fa fa-sign-in"></i></a></li>
         </ul>
       </nav>
      
       <nav class="nav social-nav pull-right d-none d-lg-inline">
-        <a href="#"><i class="fa fa-twitter"></i></a> <a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i class="fa fa-linkedin"></i></a> <a href="#"><i class="fa fa-envelope"></i></a>
+        <a href="/login"><i class="fa fa-sign-in"></i></a>
       </nav>
     </div>
   </header>
