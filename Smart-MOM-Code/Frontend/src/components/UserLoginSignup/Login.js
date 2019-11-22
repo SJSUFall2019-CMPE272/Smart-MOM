@@ -1,8 +1,19 @@
 import React, {Component} from 'react';
 import './Login.scss'
-
+import { CountryDropdown, RegionDropdown, CountryRegionData } from 'react-country-region-selector';
 class Login  extends Component{
-
+  constructor (props) {
+    super(props);
+    this.state = { country: '', region: '' };
+  }
+ 
+  selectCountry (val) {
+    this.setState({ country: val });
+  }
+ 
+  selectRegion (val) {
+    this.setState({ region: val });
+  }
 
   componentDidMount(){
        let script = document.createElement("script");
@@ -14,7 +25,7 @@ class Login  extends Component{
   }
     render(){
 
-
+      const { country, region } = this.state;
 
         return (
             <div>
@@ -63,8 +74,20 @@ class Login  extends Component{
         <span>Password</span>
         <input type="password" />
       </label>
+      <label>
+        <span>Country</span>
+        <CountryDropdown
+          value={country}
+          id="select-css"
+          onChange={(val) => this.selectCountry(val)} />
+        <RegionDropdown
+          country={country}
+          value={region}
+          id="select-css"
+          onChange={(val) => this.selectRegion(val)} />
+      
+      </label>
       <button type="button" class="submit">Sign Up</button>
-      <button type="button" class="fb-btn">Join with <span>facebook</span></button>
     </div>
   </div>
 </div>
