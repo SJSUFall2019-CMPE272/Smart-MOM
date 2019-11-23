@@ -25,7 +25,11 @@ Users = new Schema({
     },
     country:{
         type:String
-    }
+    },
+    time : {
+        type : Date,
+        default : Date.now
+	}
 })
 
 module.exports = mongoose.model('users', Users);
