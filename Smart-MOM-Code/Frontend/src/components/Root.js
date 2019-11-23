@@ -17,8 +17,7 @@ class Root extends Component {
                 <Route exact path="/" component={Welcome}/>
 
                 <Route path="/login" component={Login}/>
-                <Route path="/Signup" component={Signup}/>  
-=
+                <Route path="/Signup" component={Signup}/>
                 <Route path="/dashboard" component={Dashboard}/>
 
              
