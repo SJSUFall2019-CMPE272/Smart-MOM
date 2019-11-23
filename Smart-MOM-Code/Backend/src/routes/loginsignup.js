@@ -7,11 +7,12 @@ var Users = require('../models/users');
 
 router.route('/signup').post(function(req, res){
     var encryptPass = req.body.password;
-    console.log("SignUp User");
+    console.log("SignUp User",req.body);
     var signupData = {
         "name": req.body.name,
         "username": req.body.username,
-        "password": ""
+        "password": "",
+        "country":req.body.country
     }
     var msg = {
         signupData : signupData,

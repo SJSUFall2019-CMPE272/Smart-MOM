@@ -22,6 +22,9 @@ Users = new Schema({
     },
     address: {
         type: String
+    },
+    country:{
+        type:String
     }
 })
 
