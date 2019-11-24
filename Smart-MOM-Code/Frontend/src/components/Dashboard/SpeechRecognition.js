@@ -11,8 +11,7 @@ const propTypes = {
 };
 
 const options = {
-    autoStart: false,
-    continuous:false
+    autoStart: false
   }
 
 const generateSummary = (transcript)=>{
