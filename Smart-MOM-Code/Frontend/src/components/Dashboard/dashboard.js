@@ -3,8 +3,11 @@ import { Link } from 'react-router-dom'
 import { Redirect } from 'react-router'
 import { rooturl } from '../../config';
 import axios from 'axios';
+import AudioAnalyser from "react-audio-analyser"
+import SpeechRecognition from './SpeechRecognition'
 
 import Navbar from '../navbar'
+import './dashboard.css'
 
 
 class Dashboard extends Component {
@@ -12,7 +15,8 @@ class Dashboard extends Component {
     constructor(props){
         super(props);
         this.state = {
-            imagefile : ""
+            imagefile : "",
+            status: ""
         }
         this.storeTranscript = this.storeTranscript.bind(this);
         this.onChange = this.onChange.bind(this);
@@ -23,6 +27,18 @@ class Dashboard extends Component {
         this.setState({
             [e.target.name] : e.target.files[0]
         });
+    }
+
+    controlAudio(status) {
+        this.setState({
+            status
+        })
+    }
+
+    changeScheme(e) {
+        this.setState({
+            audioType: e.target.value
+        })
     }
 
     onSubmit = (e) => {
@@ -77,6 +93,33 @@ class Dashboard extends Component {
     }
 
     render(){
+        const {status, audioSrc, audioType} = this.state;
+        const audioProps = {
+            audioType,
+            // audioOptions: {sampleRate: 30000}, // 设置输出音频采样率
+            status,
+            width:"200px",
+            audioSrc,
+            timeslice: 1000, // timeslice（https://developer.mozilla.org/en-US/docs/Web/API/MediaRecorder/start#Parameters）
+            startCallback: (e) => {
+                console.log("succ start", e)
+            },
+            pauseCallback: (e) => {
+                console.log("succ pause", e)
+            },
+            stopCallback: (e) => {
+                this.setState({
+                    audioSrc: window.URL.createObjectURL(e)
+                })
+                console.log("succ stop", e)
+            },
+            onRecordCallback: (e) => {
+                console.log("recording", e)
+            },
+            errorCallback: (err) => {
+                console.log("error", err)
+            }
+        }
         return (
             <div>
                 <Navbar />
@@ -105,9 +148,31 @@ class Dashboard extends Component {
                             <div className="card-body">
                                 <h5 className="card-title">Record a meeting</h5>
                                 <p className="card-text">Record the meeting using our own recorder and get the minutes of meeting</p>
-                                <button type="button" className="btn btn-primary">Start Recorder</button>
+                                {/* <button type="button" className="btn btn-primary">Start Recorder</button>
                                 <br></br><br></br>
-                                <button type="button" className="btn btn-primary">Upload Meeting</button>
+                                <button type="button" className="btn btn-primary">Upload Meeting</button> */}
+                                <SpeechRecognition></SpeechRecognition>
+                                {/* <div id="startRecording">
+                <AudioAnalyser {...audioProps}>
+                    <div className="btn-box">
+                        {status !== "recording" &&
+                        <i className="iconfont icon-start" title="Start Recording"
+                           onClick={() => this.controlAudio("recording")}></i>}
+                        {status === "recording" &&
+                        <i className="iconfont icon-pause" title="Pause Recording"
+                           onClick={() => this.controlAudio("paused")}></i>}
+                        <i className="iconfont icon-stop" title="Mark Recording Completed"
+                           onClick={() => this.controlAudio("inactive")}></i>
+                    </div>
+                </AudioAnalyser>
+                <p>Choose output type</p>
+                <select name="" id="" onChange={(e) => this.changeScheme(e)} value={audioType}>
+                    <option value="audio/webm">audio/webm（default）</option>
+                    <option value="audio/wav">audio/wav</option>
+                    <option value="audio/mp3">audio/mp3</option>
+                </select>
+            </div> */}
+                         
                             </div>
                         </div>
                         
@@ -122,6 +187,7 @@ class Dashboard extends Component {
                         <a className="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
                     </div>
                 </div>
+              
             </div> 
         )
     }
