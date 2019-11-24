@@ -12,7 +12,14 @@ router.route('/createsummary').post(function(req, res){
 
     var data = {
         username: req.body.username,
-        text: req.body.text
+        text: req.body.text,
+        topic: req.body.topic
+    }
+
+    if(req.body.length >= 5){
+        data.length = req.body.length;
+    } else {
+        data.length = 5;
     }
 
     Transcripts.create(data, (err, result) => {
