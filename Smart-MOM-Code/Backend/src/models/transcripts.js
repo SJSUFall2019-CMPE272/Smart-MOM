@@ -10,6 +10,15 @@ Transcripts = new Schema({
         type: String,
         required : true
     },
+    topic: {
+        type: String,
+        required : true
+    },
+    length: {
+        type: Number,
+        required : true,
+        default : 5
+    },
     time : {
         type : Date,
         default : Date.now

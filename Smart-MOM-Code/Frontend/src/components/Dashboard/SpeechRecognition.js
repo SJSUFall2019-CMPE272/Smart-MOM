@@ -34,7 +34,7 @@ const Dictaphone = ({
 
   return (
     <div>
-      <button onClick={resetTranscript}>Reset</button>
+      
       <button type="button" onClick={startListening} className="btn btn-primary">Start Recorder</button>
       {/* <button type="button" onClick={startListening} className="btn btn-primary">Start Recorder</button> */}
       <br></br><br></br>
@@ -44,7 +44,10 @@ const Dictaphone = ({
       <p><b><i>Real Time Generated Transcript</i></b></p>
       <span>{transcript}</span>
       <br/><br/>
-      <button type="button" onClick={()=>generateSummary(finalTranscript)} className="btn btn-success">Generate Summary</button>
+      <button onClick={resetTranscript} className="btn btn-primary">Reset</button>
+      <br/><br/>
+      <button type="button" onClick={()=>generateSummary(finalTranscript)} className="btn btn-success">Save Transcript</button>
+      <br/><br/>
     </div>
   );
 };

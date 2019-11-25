@@ -21,6 +21,15 @@ class Dashboard extends Component {
         this.storeTranscript = this.storeTranscript.bind(this);
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+        this.changeHandler = this.changeHandler.bind(this);
+        this.storeRecordingTranscript = this.storeRecordingTranscript.bind(this);
+    }
+
+    changeHandler = (e) => {
+        this.setState({
+            [e.target.name] : e.target.value
+        })
+        console.log(this.state);
     }
 
     onChange = (e) => {
@@ -43,35 +52,38 @@ class Dashboard extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-        var file = this.state.imagefile
-        console.log(file);
-        
-        var reader = new FileReader();
-        var text;
-        reader.readAsText(file)
-        reader.onload = function() {
-            //console.log(reader.result);
-            text = reader.result;
-            assignState(text);
+        if(this.state.topic == "" || this.state.imagefile == ""){
+            alert("Please fill out required fields");
+        } else {
+            var file = this.state.imagefile
+            console.log(file);
             
-        }
+            var reader = new FileReader();
+            var text;
+            reader.readAsText(file)
+            reader.onload = function() {
+                //console.log(reader.result);
+                text = reader.result;
+                assignState(text);
+                
+            }
 
-        var assignState = (text) => {
-            this.setState({
-                transcriptText : text
-            })
-            console.log(this.state.transcriptText);
-            this.storeTranscript();
+            var assignState = (text) => {
+                this.setState({
+                    transcriptText : text
+                })
+                //console.log(this.state.transcriptText);
+                this.storeTranscript();
+            }
         }
-        
     }
 
     storeTranscript = () => {
-        
-
         var data = {
             username : "maaz@maaz.com",
-            text: this.state.transcriptText 
+            text: this.state.transcriptText,
+            topic: this.state.topic,
+            length: this.state.length
         }
 
         axios.post(rooturl + "/createsummary", data)
@@ -90,6 +102,36 @@ class Dashboard extends Component {
                 console.log("Transcript store unsuccessful");
             }
         })
+    }
+
+    storeRecordingTranscript = () => {
+        if(!localStorage.getItem('transcript')){
+            alert("Please save the summary before proceeding");
+        } else {
+            var data = {
+            username : "maaz@maaz.com",
+            text: localStorage.getItem('transcript'),
+            topic: this.state.topic,
+            length: this.state.length
+            }
+
+            axios.post(rooturl + "/createsummary", data)
+            .then(response => {
+                console.log("Response Status: " + response.status);
+
+                if(response.status === 200){
+                    this.setState({
+                        transcriptStored: true
+                    })
+                    console.log(response.data.responseMessage)
+                } else {
+                    this.setState({
+                        transcriptStored: false
+                    })
+                    console.log("Transcript store unsuccessful");
+                }
+            })
+        } 
     }
 
     render(){
@@ -137,10 +179,21 @@ class Dashboard extends Component {
                                     <input type="file" id="file" name="imagefile" accept=".txt" onChange = {this.onChange}></input>
                                 </div> 
                                 <br></br>
-                                
-                                <button type="submit" className="btn btn-primary" onClick={this.onSubmit}>Upload File</button>
-                                
-                                </div>
+
+                                <form className="form-signin" onSubmit={this.onSubmit}>
+                                    <div className="row">
+                                        <div className="col">
+                                        <input type="text" name="topic" onChange={this.changeHandler} className="form-control" placeholder="Topic Name" required></input>
+                                        </div>
+                                        <div className="col">
+                                        <input type="number" name="length" onChange={this.changeHandler} className="form-control" placeholder="Lines of Summary" min="5"></input>
+                                        </div>
+                                    </div>
+                                    <br></br>
+                                    <button type="submit" className="btn btn-primary">Upload File</button>
+                                </form>
+
+                            </div>
                             
                         </div>
                         
@@ -171,7 +224,20 @@ class Dashboard extends Component {
                     <option value="audio/wav">audio/wav</option>
                     <option value="audio/mp3">audio/mp3</option>
                 </select>
-            </div> */}
+            </div> */}          
+
+                            <form className="form-signin" onSubmit={this.storeRecordingTranscript}>
+                                    <div className="row">
+                                        <div className="col">
+                                        <input type="text" name="topic" onChange={this.changeHandler} className="form-control" placeholder="Topic Name" required></input>
+                                        </div>
+                                        <div className="col">
+                                        <input type="number" name="length" onChange={this.changeHandler} className="form-control" placeholder="Lines of Summary" min="5"></input>
+                                        </div>
+                                    </div>
+                                    <br></br>
+                                    <button type="submit" className="btn btn-primary">Generate Summary</button>
+                            </form>
                          
                             </div>
                         </div>
