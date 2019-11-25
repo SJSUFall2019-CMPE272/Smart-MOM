@@ -20,3 +20,28 @@ This is a smart assistant to help user go through minutes of meeting in such a w
 
 # Technology Stack: 
 Python SpeechRecognition Library, XLNet Pretrained model, Natural Language Processing (NLP), Python, Pytorch, FastAi, React, NodeJS, expressJS, MySQL, MongoDB, AWS, Docker.
+
+
+# Design Thinking:
+### Manager-Person who usually conducts meetings:<br/>
+  Hill:<br/>
+    Who? Manager-Person who usually conducts meetings<br/>
+    What? can get automated minutes of meeting and task division<br/>
+    How? independent of resources and quicker results<br/>
+![Manager Persona](ManagerFolio.png)
+
+
+### New Hire-Person who usually takes minutes of meeting:<br/>
+  Hill:<br/>
+    Who? New Hire-Person who usually takes minutes of meeting<br/>
+    What? can get automated minutes of meeting<br/>
+    How? without the overhead of having to take down minutes during meetings and having the fear of missing out on important details<br/>
+![New Hire Persona](NewHireFolio.png)
+
+
+### Experienced Employee-Person who usually uses the minutes of meetings to fullest:<br/>
+  Hill:<br/>
+    Who? New Hire-Person who usually takes minutes of meeting<br/>
+    What? can get automated minutes of meeting and transcripts<br/>
+    How? even when they are not physically present and without the task of having to review the minutes written by a new hire<br/>
+![Experienced Employee Persona](ExperiencedFolio.png)
