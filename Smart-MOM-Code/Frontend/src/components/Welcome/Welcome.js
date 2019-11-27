@@ -7,17 +7,12 @@ import './lib/font-awesome/css/font-awesome.min.css';
 import './css/style.css';
 import CountUp from 'react-countup';
 import { VectorMap } from "react-jvectormap";
+import axios from 'axios'
 
-const mapData =  {
-  CN: 100000,
-  IN: 9900,
-  SA: 86,
-  EG: 70,
-  SE: 0,
-  FI: 0,
-  FR: 0,
-  US: 20
-};
+
+
+
+
 class Welcome extends Component {
 
 
@@ -28,7 +23,8 @@ class Welcome extends Component {
 
         this.state = {
             searchBox: "",
-            reDirect: ""
+            reDirect: "",
+            mapData:{}
         }
 
     }
@@ -47,6 +43,35 @@ class Welcome extends Component {
 
     scriptLoaded() {
         window.A.sort();
+      }
+
+    componentWillMount = ()=>{
+        const data = {}
+        axios.get('http://localhost:3001/getWelcomeData')
+       .then(response => {
+           console.log("Status Code in 200 : ",response.data.welocomeData);
+         console.log('here 1')
+             let mapd = {}
+               response.data.welocomeData.responseMessage.forEach(element => {
+                console.log('here 1',element)
+                let keyy = element._id;                 
+                mapd[keyy] = element.count;
+                 console.log('Map element',mapd)
+               });
+              
+               this.setState({
+                 mapData:mapd
+               })
+               
+               
+        
+         
+       }).catch(error => {
+        
+          console.log('User Login Failure!!')
+          
+           
+       })
       }
 
     componentDidMount = ()=> {
@@ -152,6 +177,8 @@ class Welcome extends Component {
 
     render() {
 
+      console.log('Map data to be rendered',this.state.mapData)
+
         return (<div>
 
  {/* Headers */}
@@ -184,11 +211,11 @@ class Welcome extends Component {
 
      <section class="hero">
     <div class="container text-center">
-      <div class="row">
+      {/* <div class="row">
         <div class="col-md-12">
           <a class="hero-brand" href="index.html" title="Home"><img alt="Bell Logo" src={require('./img/logo.png')}/></a>
         </div>
-      </div>
+      </div> */}
 
       <div class="col-md-12">
         <h1>
@@ -196,7 +223,7 @@ class Welcome extends Component {
           </h1>
 
         <p class="tagline">
-          This is a powerful tool that can summarize all your meetings and auto assign tasks to the participants.
+          This is a powerful tool that can summarize all your meetings and generate valuable insights from it.
         </p>
         <a class="btn btn-full" href="#about">Get Started Now</a>
       </div>
@@ -537,7 +564,7 @@ class Welcome extends Component {
         series={{
           regions: [
             {
-              values: mapData, //this is your data
+              values: this.state.mapData, //this is your data
               scale: ["#146804", "#ff0000"], //your color game's here
               normalizeFunction: "polynomial"
             }

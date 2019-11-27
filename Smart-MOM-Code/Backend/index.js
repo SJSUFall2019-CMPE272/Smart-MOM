@@ -48,6 +48,7 @@ app.use(function(req, res, next) {
 var loginsignup = require('./src/routes/loginsignup');
 var profileupdate = require('./src/routes/profileupdate');
 var transcripts = require('./src/routes/transcript');
+var getCountryData = require('./src/routes/countryData');
 
 app.use(express.static('./uploads'));
 var basePath = '/';
@@ -60,6 +61,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(basePath, loginsignup);
 app.use(basePath, profileupdate);
 app.use(basePath, transcripts);
+app.use(basePath,getCountryData);
 app.use('/uploads', express.static(path.join(__dirname, '/uploads/')));
 
 

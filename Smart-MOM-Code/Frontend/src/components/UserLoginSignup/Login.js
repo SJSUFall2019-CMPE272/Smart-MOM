@@ -13,13 +13,43 @@ options = {
     message: (
         <div>
             <div>
-                Login to <b>SMART-MOM</b> Failed 
+            <p align="center">Login to <b>SMART-MOM</b> Failed </p>
             </div>
         </div>
     ),
     type: "danger",
     icon: "now-ui-icons ui-1_bell-53",
     autoDismiss: 3
+}
+
+var optionsSignupFailure = {};
+optionsSignupFailure={
+  place: 'tc',
+  message: (
+      <div>
+          <div>
+             <p align="center">Email ID already registered!</p>
+          </div>
+      </div>
+  ),
+  type: "danger",
+  icon: "now-ui-icons ui-1_bell-53",
+  autoDismiss: 3
+}
+
+var optionsSignupSuccess = {};
+optionsSignupSuccess={
+  place: 'tc',
+  message: (
+      <div>
+          <div>
+          <p align="center">Sign up Successful!</p>
+          </div>
+      </div>
+  ),
+  type: "success",
+  icon: "now-ui-icons ui-1_bell-53",
+  autoDismiss: 3
 }
 
 class Login  extends Component{
@@ -92,15 +122,13 @@ let data =  {username:this.state.email,email:this.state.email,password:this.stat
      console.log("Status Code : ",response.data);
      if(response.status === 200){
          console.log('User Signup success')
-         this.setState({
-           loginStatus:true
-         })
+         this.refs.notifySignUpSuccess.notificationAlert(optionsSignupSuccess);
      }else{
-      
+      this.refs.notifySignUpFailure.notificationAlert(optionsSignupFailure);
      }
  }).catch(error => {
-  console.log('User Signup Failure!!')
-     
+  console.log('User Signup Failure!!')  //notifySignUpSuccess
+  this.refs.notifySignUpFailure.notificationAlert(optionsSignupFailure);
  })
   }
 
@@ -144,6 +172,8 @@ console.log('Here in the country changeee')
             <div>
               {redirectVar}
               <NotificationAlert ref="notify" />
+              <NotificationAlert ref="notifySignUpFailure" />
+              <NotificationAlert ref="notifySignUpSuccess" />
               {/* {this.state.showMessage==true?<div>
           <NotificationAlert ref="notify" />
         <button onClick={() => this.myFunc()}>Hey</button>
@@ -200,6 +230,7 @@ console.log('Here in the country changeee')
         <span>Country</span>
         <br></br>
         <select onChange={this.changeCountry} id="country">
+        <option value="Select">Select</option>
  {showCountry}
 </select>
           

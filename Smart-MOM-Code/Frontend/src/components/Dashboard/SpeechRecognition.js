@@ -10,6 +10,9 @@ const propTypes = {
     
 };
 
+let endtime = 0;
+
+let mStartTime = 0;
 const options = {
     autoStart: false
   }
@@ -17,6 +20,26 @@ const options = {
 const generateSummary = (transcript)=>{
     console.log('Here Summary',transcript)
     localStorage.setItem('transcript',transcript)
+}
+
+const startTimer = ()=>{
+   mStartTime = new Date()
+   console.log('Here in the start timer',mStartTime)
+}
+
+const endTimer = ()=>{
+  endtime = new Date()
+  console.log('Here in the end timer',endtime)
+
+  var timeDiff = endtime - mStartTime; //in ms
+  // strip the ms
+  timeDiff /= 1000;
+
+  // get seconds 
+  var seconds = Math.round(timeDiff);
+  var minutes = seconds/60;
+  console.log(seconds + " seconds");
+localStorage.setItem('meetingDuration',seconds);
 }
 
 const Dictaphone = ({
@@ -35,10 +58,10 @@ const Dictaphone = ({
   return (
     <div>
       
-      <button type="button" onClick={startListening} className="btn btn-primary">Start Recorder</button>
+      <button type="button" onClick={(event) => { startListening(); startTimer()}} className="btn btn-primary">Start Recorder</button>
       {/* <button type="button" onClick={startListening} className="btn btn-primary">Start Recorder</button> */}
       <br></br><br></br>
-      <button type="button" onClick={stopListening} className="btn btn-danger">Stop Recorder</button>
+      <button type="button" onClick={(event) => { stopListening(); endTimer()}} className="btn btn-danger">Stop Recorder</button>
       <br></br>
       <br/>
       <p><b><i>Real Time Generated Transcript</i></b></p>
