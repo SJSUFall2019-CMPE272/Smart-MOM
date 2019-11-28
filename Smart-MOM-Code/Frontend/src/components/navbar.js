@@ -4,10 +4,22 @@ import { Redirect } from 'react-router'
 
 
 class Navbar extends Component {
+
+	handleLogout = () => {
+        localStorage.clear();
+	}
+	
     render(){
-        console.log("Hello there");
+		console.log("Hello there");
+		let redirectVar = null;
+		if (!localStorage.getItem("username")) {
+            localStorage.clear();
+            redirectVar = <Redirect to="/" />;
+        }		
+
         return (
             <nav className="navbar navbar-expand-md navbar-dark bg-primary">
+			{redirectVar}
                 <div className="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
 	                <ul className="navbar-nav mr-auto">
 		                <li className="nav-item active">
@@ -27,10 +39,10 @@ class Navbar extends Component {
                 <div className="navbar-collapse collapse w-100 order-3 dual-collapse2">
 	                <ul className="navbar-nav ml-auto">
 		                <li className="nav-item">
-			                <a className="nav-link active" href="#">Hello User</a>
+			                <a className="nav-link active" href="#">Hello, {localStorage.getItem("name")}</a>
 		                </li>
 		                <li className="nav-item">
-			                <a className="nav-link active" href="#">Logout</a>
+			                <a className="nav-link active" href="/" onClick = {this.handleLogout}>Logout</a>
 		                </li>
 	                </ul>
                 </div>

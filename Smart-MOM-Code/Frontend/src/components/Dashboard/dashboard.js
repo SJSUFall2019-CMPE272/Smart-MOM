@@ -96,7 +96,9 @@ class Dashboard extends Component {
 
             if(response.status === 200){
                 this.setState({
-                    transcriptStored: true
+                    transcriptStored: true,
+                    summary : response.data.responseMessage,
+                    summaryReceived : true
                 })
                 console.log(response.data.responseMessage)
             } else {
@@ -118,7 +120,8 @@ class Dashboard extends Component {
             username : "maaz@maaz.com",
             text: localStorage.getItem('transcript'),
             topic: this.state.topic,
-            length: this.state.length
+            length: this.state.length,
+            duration: localStorage.getItem('meetingDuration')
             }
             this.setState({
                 loading: true
@@ -132,7 +135,9 @@ class Dashboard extends Component {
                 this.setState({loading: false});
                 if(response.status === 200){
                     this.setState({
-                        transcriptStored: true
+                        transcriptStored: true,
+                        summary : response.data.responseMessage,
+                        summaryReceived : true
                     })
                     console.log(response.data.responseMessage)
                 } else {
@@ -172,6 +177,30 @@ class Dashboard extends Component {
             errorCallback: (err) => {
                 console.log("error", err)
             }
+        }
+
+        if(this.state.summaryReceived){
+            var jumbotronVisibility = {visibility: "visible"}
+
+            var topicName = this.state.topic;
+            var entities = this.state.summary.entities.map(entity => {
+                return (
+                    <span className='badge badge-info'>{entity}</span>
+                )
+            });
+
+            var sentiment = this.state.summary.sentiment;
+            
+            var summary = this.state.summary.text;
+            //var bullets = this.state.summary.text.split(".");
+            // var summary = bullets.map(line => {
+            //     return (
+            //     <li>{line}</li>
+            //     )
+            // })
+
+        } else {
+            var jumbotronVisibility = {visibility: "hidden"}
         }
         return (
             <div>
@@ -257,12 +286,15 @@ class Dashboard extends Component {
                     </div>
                         
                     <br></br>
-                    <div className="jumbotron" style={{visibility: "visible"}}>
-                        <h1 className="display-4">Hello, world!</h1>
-                        <p className="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+                    <div className="jumbotron" style={jumbotronVisibility}>
+                        <h1 className="display-5 text-center">{topicName}</h1>
+                        <p className="lead"><span className="btn btn-danger btn-sm">Entities:</span> { entities }</p>
                         <hr className="my-4"></hr>
-                        <p>It uses utility classNamees for typography and spacing to space content out within the larger container.</p>
-                        <a className="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+                        <p><span className="btn btn-danger btn-sm">Sentiment:</span> <span className='badge badge-primary'>{sentiment}</span></p>
+                        <hr className="my-4"></hr>
+                        <p>
+                            {summary}
+                        </p>
                     </div>
                 </div>
               

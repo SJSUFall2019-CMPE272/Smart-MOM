@@ -90,6 +90,8 @@ let data =  {username:this.state.emailsignin,password:this.state.passwordsignin}
      console.log("Status Code : ",response.data);
      if(response.status === 200){
          console.log('User Login success')
+         localStorage.setItem('username', response.data.responseMessage.username);
+         localStorage.setItem('name', response.data.responseMessage.name);
          this.setState({
            loginStatus:true
          })
