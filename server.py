@@ -3,10 +3,12 @@ from flask import Flask
 from flask import request, jsonify
 import spacy
 from deepcorrect import DeepCorrect
+from deepsegment import DeepSegment
 
 
 app = Flask(__name__)
 global corrector
+global segmenter
 
 
 def dataPreProcessModel():
@@ -14,13 +16,15 @@ def dataPreProcessModel():
     global corrector
     corrector = DeepCorrect('/Users/Amitgarg/Documents/SJSU/272-Ranjan/Smart-MOM/model_params/deeppunct_params_en',
                             '/Users/Amitgarg/Documents/SJSU/272-Ranjan/Smart-MOM/model_params/deeppunct_checkpoint_google_news')
+    global segmenter
+    segmenter = DeepSegment('en')
 
 
 @app.route('/summarize', methods=["POST"])
 def summary():
     print("Inside Summarizer")
     data = request.get_json()
-    result = inference(data['id'], corrector)
+    result = inference(data['id'], corrector, segmenter)
     # print(result)
     return jsonify(result)
 
@@ -43,15 +47,6 @@ def summary():
 #     data = request.get_json()
 #     sentimentoutput = entityRecog(data['id'])
 #     return jsonify(sentimentoutput)
-
-# @app.route('/audioToTrans', methods=["POST"])
-# def audio():
-#     data = request.get_json()
-#     # print(data['topic'])
-#     path = data['path']
-#     resp = audioToTranscript(path)
-#     return jsonify(resp)
-
 
 if __name__ == '__main__':
     dataPreProcessModel()
