@@ -22,7 +22,10 @@ Transcripts = new Schema({
     time : {
         type : Date,
         default : Date.now
-	}
+    },
+    duration : {
+        type : Number
+    }
 })
 
 module.exports = mongoose.model('transcripts', Transcripts);
