@@ -20,7 +20,7 @@ cymem==2.0.2
 decorator==4.4.0
 defusedxml==0.6.0
 dill==0.3.1.1
-Django==2.1.5
+Django==2.1.11
 dnspython==1.16.0
 docutils==0.15.2
 en-core-web-sm==2.1.0
