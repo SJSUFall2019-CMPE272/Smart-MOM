@@ -11,7 +11,7 @@ class Navbar extends Component {
 	}
 	
     render(){
-		console.log("Hello there");
+		//console.log("Hello there");
 		let redirectVar = null;
 		if (!localStorage.getItem("username")) {
             localStorage.clear();
@@ -27,7 +27,7 @@ class Navbar extends Component {
 			                <a className="nav-link" href="/profile">Profile</a>
 		                </li>
 		                <li className="nav-item active">
-			                <a className="nav-link" href="#">Summaries</a>
+			                <a className="nav-link" href="/summary">Summaries</a>
 		                </li>
 	                </ul>
                 </div>

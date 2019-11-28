@@ -92,7 +92,7 @@ router.route('/createsummary').post(function(req, res){
     
 })
 
-router.route('/pastsummary').get(function(req, res){
+router.route('/pastsummary').post(function(req, res){
     console.log("Inside Past Summaries API");
 
     var data = {
