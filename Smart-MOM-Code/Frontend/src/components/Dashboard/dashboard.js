@@ -5,6 +5,7 @@ import { rooturl } from '../../config';
 import axios from 'axios';
 import AudioAnalyser from "react-audio-analyser"
 import SpeechRecognition from './SpeechRecognition'
+import Button from 'react-bootstrap-button-loader';
 
 import Navbar from '../navbar'
 import './dashboard.css'
@@ -16,7 +17,8 @@ class Dashboard extends Component {
         super(props);
         this.state = {
             imagefile : "",
-            status: ""
+            status: "",
+            loading:false
         }
         this.storeTranscript = this.storeTranscript.bind(this);
         this.onChange = this.onChange.bind(this);
@@ -79,6 +81,8 @@ class Dashboard extends Component {
     }
 
     storeTranscript = () => {
+     
+
         var data = {
             username : "maaz@maaz.com",
             text: this.state.transcriptText,
@@ -104,7 +108,9 @@ class Dashboard extends Component {
         })
     }
 
-    storeRecordingTranscript = () => {
+    storeRecordingTranscript = (e) => {
+        e.preventDefault();
+        console.log('Here in the store recording')
         if(!localStorage.getItem('transcript')){
             alert("Please save the summary before proceeding");
         } else {
@@ -114,11 +120,16 @@ class Dashboard extends Component {
             topic: this.state.topic,
             length: this.state.length
             }
-
+            this.setState({
+                loading: true
+            })
+            // setTimeout(() => {
+            //     this.setState({loading: false});
+            //   }, 6000);
             axios.post(rooturl + "/createsummary", data)
             .then(response => {
                 console.log("Response Status: " + response.status);
-
+                this.setState({loading: false});
                 if(response.status === 200){
                     this.setState({
                         transcriptStored: true
@@ -236,7 +247,8 @@ class Dashboard extends Component {
                                         </div>
                                     </div>
                                     <br></br>
-                                    <button type="submit" className="btn btn-primary">Generate Summary</button>
+                                    <Button loading={this.state.loading} type="submit">Generate Summary</Button>
+                                    {/* <button type="submit" className="btn btn-primary">Generate Summary</button> */}
                             </form>
                          
                             </div>

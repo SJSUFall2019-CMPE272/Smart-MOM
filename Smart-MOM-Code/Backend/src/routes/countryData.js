@@ -53,7 +53,24 @@ router.route('/getWelcomeData').get(function(req, res){
                             else{
 
                                 responseObj.tcount = tcount;
+
+                                Transcripts.aggregate([
+                                    {"$group" : {_id:"$duration", count:{$sum:1}}}
+                                ],(err,resp)=>{
+                                    if(err)
+                            {
+                                console.log(err);
+            console.log("unable to read the database");
+            res.status(401).send({welocomeData: err});
+                            }
+                            else{
+                                responseObj.duration = resp;
                                 res.status(200).send({welocomeData: responseObj});
+                            } 
+                                })
+
+
+                               
                             }
                         })
 
