@@ -3,7 +3,54 @@ import './Login.scss'
 import {countryList} from './Countries'
 import { CountryDropdown, RegionDropdown, CountryRegionData } from 'react-country-region-selector';
 import axios from 'axios'
+import {Redirect} from 'react-router';
+import NotificationAlert from 'react-notification-alert';
+import "react-notification-alert/dist/animate.css";
 
+var options = {};
+options = {
+    place: 'tc',
+    message: (
+        <div>
+            <div>
+            <p align="center">Login to <b>SMART-MOM</b> Failed </p>
+            </div>
+        </div>
+    ),
+    type: "danger",
+    icon: "now-ui-icons ui-1_bell-53",
+    autoDismiss: 3
+}
+
+var optionsSignupFailure = {};
+optionsSignupFailure={
+  place: 'tc',
+  message: (
+      <div>
+          <div>
+             <p align="center">Email ID already registered!</p>
+          </div>
+      </div>
+  ),
+  type: "danger",
+  icon: "now-ui-icons ui-1_bell-53",
+  autoDismiss: 3
+}
+
+var optionsSignupSuccess = {};
+optionsSignupSuccess={
+  place: 'tc',
+  message: (
+      <div>
+          <div>
+          <p align="center">Sign up Successful!</p>
+          </div>
+      </div>
+  ),
+  type: "success",
+  icon: "now-ui-icons ui-1_bell-53",
+  autoDismiss: 3
+}
 
 class Login  extends Component{
   constructor (props) {
@@ -15,11 +62,15 @@ class Login  extends Component{
       country:" ",
       emailsignin:" ",
       passwordsignin:" ",
-      country:" "
+      country:" ",
+      loginStatus:false,
+      showMessage:false,
     }
 
   }
-
+  myFunc(){
+    this.refs.notify.notificationAlert(options);
+}
   valueChangedHandler = (event) => {
    // console.log('Event target', event.target)
     const { name, value } = event.target;
@@ -38,13 +89,26 @@ let data =  {username:this.state.emailsignin,password:this.state.passwordsignin}
  .then(response => {
      console.log("Status Code : ",response.data);
      if(response.status === 200){
-         console.log('User Signup success')
-        
-     }else{
-        
+         console.log('User Login success')
+         this.setState({
+           loginStatus:true
+         })
+     }
+     else{
+         
+    console.log('User Login Failure!!')
+    // this.setState({
+    //  showMessage:true
+    // })
+    this.refs.notify.notificationAlert(options);
      }
  }).catch(error => {
-  console.log('User Signup Failure!!')
+  
+    console.log('User Login Failure!!')
+    //  this.setState({
+    //   showMessage:true
+    //  })
+    this.refs.notify.notificationAlert(options);
      
  })
   }
@@ -58,13 +122,13 @@ let data =  {username:this.state.email,email:this.state.email,password:this.stat
      console.log("Status Code : ",response.data);
      if(response.status === 200){
          console.log('User Signup success')
-        
+         this.refs.notifySignUpSuccess.notificationAlert(optionsSignupSuccess);
      }else{
-        
+      this.refs.notifySignUpFailure.notificationAlert(optionsSignupFailure);
      }
  }).catch(error => {
-  console.log('User Signup Failure!!')
-     
+  console.log('User Signup Failure!!')  //notifySignUpSuccess
+  this.refs.notifySignUpFailure.notificationAlert(optionsSignupFailure);
  })
   }
 
@@ -99,10 +163,23 @@ console.log('Here in the country changeee')
 
      // const { country, region } = this.state;
       let showCountry = this.getCountries()
-
+      let redirectVar = null;
+        if(this.state.loginStatus){
+            redirectVar = <Redirect to= "/dashboard"/>
+        }
+        console.log('Redirected',redirectVar); 
         return (
             <div>
+              {redirectVar}
+              <NotificationAlert ref="notify" />
+              <NotificationAlert ref="notifySignUpFailure" />
+              <NotificationAlert ref="notifySignUpSuccess" />
+              {/* {this.state.showMessage==true?<div>
+          <NotificationAlert ref="notify" />
+        <button onClick={() => this.myFunc()}>Hey</button>
+      </div>:<div></div>} */}
               <h1 class="tip">SMART-MOM Login</h1>
+            
 <div class="cont">
   <div class="form sign-in">
     <h2>Welcome back,</h2>
@@ -153,6 +230,7 @@ console.log('Here in the country changeee')
         <span>Country</span>
         <br></br>
         <select onChange={this.changeCountry} id="country">
+        <option value="Select">Select</option>
  {showCountry}
 </select>
           
