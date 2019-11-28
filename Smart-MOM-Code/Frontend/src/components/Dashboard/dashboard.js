@@ -9,6 +9,7 @@ import Button from 'react-bootstrap-button-loader';
 
 import Navbar from '../navbar'
 import './dashboard.css'
+import '../navbar'
 
 
 class Dashboard extends Component {
@@ -185,7 +186,7 @@ class Dashboard extends Component {
             var topicName = this.state.topic;
             var entities = this.state.summary.entities.map(entity => {
                 return (
-                    <span className='badge badge-info'>{entity}</span>
+                    <span className='badge badge-info'>{entity}{' '}</span>
                 )
             });
 
@@ -230,7 +231,7 @@ class Dashboard extends Component {
                                         </div>
                                     </div>
                                     <br></br>
-                                    <button type="submit" className="btn btn-primary">Upload File</button>
+                                    <button type="submit" className="btn btn-primary" id="btnc">Upload File</button>
                                 </form>
 
                             </div>
@@ -276,7 +277,7 @@ class Dashboard extends Component {
                                         </div>
                                     </div>
                                     <br></br>
-                                    <Button loading={this.state.loading} type="submit">Generate Summary</Button>
+                                    <Button loading={this.state.loading} type="submit" id="btnc">Generate Summary</Button>
                                     {/* <button type="submit" className="btn btn-primary">Generate Summary</button> */}
                             </form>
                          

@@ -39,50 +39,50 @@ router.route('/createsummary').post(function(req, res){
 
                 /* Comment below function when using Python API to fetch data */
                 var summaryId = "5ddf1776837e6c3add7d2cc5";
-                Summary.findById(summaryId, (err, result1) => {
-                    if (err) {
-                        console.log("unable to insert into database", err);
-                        res.status(401).send({responseMessage: err});
-                    } else {
-                        if(result1){
-                            console.log(result1);
-                            res.status(200).send({responseMessage: result1})
-                        } else {
-                            res.status(404).send({responseMessage: "Summary Not Found"});
-                        }
-                    }
-                })
+                // Summary.findById(summaryId, (err, result1) => {
+                //     if (err) {
+                //         console.log("unable to insert into database", err);
+                //         res.status(401).send({responseMessage: err});
+                //     } else {
+                //         if(result1){
+                //             console.log(result1);
+                //             res.status(200).send({responseMessage: result1})
+                //         } else {
+                //             res.status(404).send({responseMessage: "Summary Not Found"});
+                //         }
+                //     }
+                // })
 
                 /* Uncomment below part when Python API to fetch the summary is ready */
 
-                // axios.post(pythonURL, data1)
-                // .then(response => {
-                //     if(response.status === 200){
-                //         console.log("API call successful");
-                //         console.log(response.data);
-                //         var summaryId = response.data._id;
-                //         Summary.findById(summaryId, (err, result1) => {
-                //             if (err) {
-                //                 console.log("unable to insert into database", err);
-                //                 res.status(401).send({responseMessage: err});
-                //             } else {
-                //                 if(result1){
-                //                     console.log(result1);
-                //                     res.status(200).send({responseMessage: result1})
-                //                 } else {
-                //                     res.status(404).send({responseMessage: "Summary Not Found"});
-                //                 }
-                //             }
-                //         })
-                //     } else {
-                //         console.log("API call unsuccessful");
-                //         res.status(401).send({responseMessage: err});
-                //     }
-                // })
-                // .catch(err => {
-                //     console.log(err);
-                //     res.status(401).send({responseMessage: err});
-                // })               
+                axios.post(pythonURL, data1)
+                .then(response => {
+                    if(response.status === 200){
+                        console.log("API call successful");
+                        console.log(response.data);
+                        var summaryId = response.data._id;
+                        Summary.findById({"_id":mongoose.Types.ObjectId(summaryId) }, (err, result1) => {
+                            if (err) {
+                                console.log("unable to insert into database", err);
+                                res.status(401).send({responseMessage: err});
+                            } else {
+                                if(result1){
+                                    console.log(result1);
+                                    res.status(200).send({responseMessage: result1})
+                                } else {
+                                    res.status(404).send({responseMessage: "Summary Not Found"});
+                                }
+                            }
+                        })
+                    } else {
+                        console.log("API call unsuccessful");
+                        res.status(401).send({responseMessage: err});
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                    res.status(401).send({responseMessage: err});
+                })               
             }
         })
     } catch(err) {

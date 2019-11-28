@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { Redirect } from 'react-router'
+import './navbar.css'
 
 
 class Navbar extends Component {
@@ -18,7 +19,7 @@ class Navbar extends Component {
         }		
 
         return (
-            <nav className="navbar navbar-expand-md navbar-dark bg-primary">
+            <nav className="navbar navbar-expand-md navbar-dark  navbar-custom fixed-top">
 			{redirectVar}
                 <div className="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
 	                <ul className="navbar-nav mr-auto">
