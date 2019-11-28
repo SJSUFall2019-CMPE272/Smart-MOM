@@ -17,6 +17,10 @@ Summary = new Schema({
     sentiment: {
         type: String,
     },
+    topic: {
+        type: String,
+        required : true
+    },
     entities: {
         type: [],
     },
