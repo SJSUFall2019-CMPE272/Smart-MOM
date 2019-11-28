@@ -12,7 +12,7 @@ import datetime
 # from bson.json_util import dumps
 from deepcorrect import DeepCorrect
 from textblob import TextBlob
-from deepsegment import DeepSegment
+# from deepsegment import DeepSegment
 
 
 def preProcessTranscript(transcript, corrector):
@@ -51,7 +51,6 @@ def saveSummary(_id, result, transcriptid, username, length, meeting_sentiment, 
     res = summaries.insert_one({"text": result,
                                 "transcriptid": ObjectId(transcriptid),
                                 "username": username,
-                                "length": length,
                                 "time": datetime.datetime.utcnow(),
                                 "sentiment": meeting_sentiment,
                                 "entities": entities
@@ -71,7 +70,7 @@ def inference(_id, corrector):
     entities = entityRecog(_id)
     # topic = preProcessTranscript(topic)
     meeting_sentiment = sentiment(_id)
-    correct_sentence__test(body, corrector)
+    # correct_sentence__test(body, corrector)
     model = Summarizer()
     data = model.get_summary(body, topic)
     size = len(data)
@@ -121,27 +120,27 @@ def sentiment(_id):
         return 'Negative'
 
 
-def correct_sentence__test(data, corrector):
+# def correct_sentence__test(data, corrector):
 
-    segmenter = DeepSegment('en')
-    chunk_size = 200  # read 600 character at a time
-    # for txt_file in os.listdir('input'):
-    output_data = ''
-    # f = open('input/{}'.format(txt_file),'r')
+#     segmenter = DeepSegment('en', tf_serving=True)
+#     chunk_size = 200  # read 600 character at a time
+#     # for txt_file in os.listdir('input'):
+#     output_data = ''
+#     # f = open('input/{}'.format(txt_file),'r')
 
-    # data = f.read()
-    seg_data_arr = segmenter.segment_long(data)
-    for seg_data in seg_data_arr:
-        if len(seg_data) > chunk_size:
-            for chunk_str in chunkstring(seg_data, chunk_size):
-                punt_data = corrector.correct(
-                    chunk_str)[0]['sequence']  # get corrected output
-                output_data += ''.join(punt_data)
-        else:
-            punt_data = corrector.correct(
-                seg_data)[0]['sequence']  # get corrected output
-            output_data += ''.join(punt_data)
-    print("Input Data:- ", data)
-    print("Output Data:- ", output_data)
-    print("Length of Input Data:- ", len(data))
-    print("Lenght of Output Data:- ", len(output_data))
+#     # data = f.read()
+#     seg_data_arr = segmenter.segment_long(data)
+#     for seg_data in seg_data_arr:
+#         if len(seg_data) > chunk_size:
+#             for chunk_str in chunkstring(seg_data, chunk_size):
+#                 punt_data = corrector.correct(
+#                     chunk_str)[0]['sequence']  # get corrected output
+#                 output_data += ''.join(punt_data)
+#         else:
+#             punt_data = corrector.correct(
+#                 seg_data)[0]['sequence']  # get corrected output
+#             output_data += ''.join(punt_data)
+#     print("Input Data:- ", data)
+#     print("Output Data:- ", output_data)
+#     print("Length of Input Data:- ", len(data))
+#     print("Lenght of Output Data:- ", len(output_data))

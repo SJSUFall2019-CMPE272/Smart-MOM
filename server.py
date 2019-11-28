@@ -18,24 +18,25 @@ def dataPreProcessModel():
 
 @app.route('/summarize', methods=["POST"])
 def summary():
+    print("Inside Summarizer")
     data = request.get_json()
     result = inference(data['id'], corrector)
     # print(result)
     return jsonify(result)
 
 
-@app.route('/entity', methods=["POST"])
-def entity():
-    print('Inside entity')
-    data = request.get_json()
-    doc = entityRecog(data['id'])
-    # result = []
-    # for entity in doc.ents:
-    #     # print(entity.text, entity.label_)
-    #     if entity.label_ == 'PERSON':
-    #         result.append(entity.text)
+# @app.route('/entity', methods=["POST"])
+# def entity():
+#     print('Inside entity')
+#     data = request.get_json()
+#     doc = entityRecog(data['id'])
+#     # result = []
+#     # for entity in doc.ents:
+#     #     # print(entity.text, entity.label_)
+#     #     if entity.label_ == 'PERSON':
+#     #         result.append(entity.text)
 
-    return jsonify(doc)
+#     return jsonify(doc)
 
 # @app.route('/sentiment',methods=["POST"])
 # def sentiment_analysis():
