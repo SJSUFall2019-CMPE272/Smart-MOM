@@ -11,7 +11,8 @@ import axios from 'axios'
 
 
 
-
+let uc = 0;
+let tc = 0;
 
 class Welcome extends Component {
 
@@ -24,7 +25,8 @@ class Welcome extends Component {
         this.state = {
             searchBox: "",
             reDirect: "",
-            mapData:{}
+            mapData:{},
+            metricData:{}
         }
 
     }
@@ -58,13 +60,18 @@ class Welcome extends Component {
                 mapd[keyy] = element.count;
                  console.log('Map element',mapd)
                });
-              
+               let metricData = {}
+               metricData.usersCount =  response.data.welocomeData.usersCount;
+               metricData.tCount =  response.data.welocomeData.tcount
+               metricData.duration = response.data.welocomeData.duration[0].count
+               console.log('Metric Data element',metricData)
                this.setState({
-                 mapData:mapd
+                 mapData:mapd,
+                 metricData:metricData
                })
                
                
-        
+               this.setState({});
          
        }).catch(error => {
         
@@ -75,109 +82,18 @@ class Welcome extends Component {
       }
 
     componentDidMount = ()=> {
-        // let script = document.createElement("script");
-
-        // script.src = require('./lib/jquery/jquery.min.js');
-        // script.async = true;
-    
-        // document.body.appendChild(script);
-
-        //  script.src = require('./lib/jquery/jquery-migrate.min.js');
-        // script.async = true;
-    
-        // document.body.appendChild(script);
-        // let script = document.createElement("script");
-        // script.src = require('./lib/lockfixed/lockfixed.min.js');
-        // script.async = true;
-    
-        // document.body.appendChild(script);
-        // let script = document.createElement("script");
-        // script.src = './lib/counterup/counterup.min.js';
-        // script.async = true;
-        // document.body.appendChild(script);
-        // let script = document.createElement("script");
-    
-       
-        //  script = document.createElement("script");
-    
-        // script.src = './lib/jquery/jquery-migrate.min.js';
-        // script.async = true;
-    
-        // document.body.appendChild(script);
-        //  script = document.createElement("script");
-    
-        // script.src = './lib/superfish/hoverIntent.js';
-        // script.async = true;
-    
-        // document.body.appendChild(script);
-        //  script = document.createElement("script");
-    
-        // script.src = './lib/superfish/superfish.min.js';
-        // script.async = true;
-    
-        // document.body.appendChild(script);
-        //  script = document.createElement("script");
-    
-        // script.src = './lib/tether/js/tether.min.js';
-        // script.async = true;
-    
-        // document.body.appendChild(script);
-        //  script = document.createElement("script");
-    
-        // script.src = './lib/stellar/stellar.min.js';
-        // script.async = true;
-    
-        // document.body.appendChild(script);
-        // script.src = './lib/bootstrap/js/bootstrap.bundle.min.js';
-        // script.async = true;
-    
-       
-    
-        // document.body.appendChild(script);
-        // script.src = './lib/waypoints/waypoints.min.js';
-        // script.async = true;
-    
-        // document.body.appendChild(script);
-        // script.src = './lib/easing/easing.js';
-        // script.async = true;
-    
-        // document.body.appendChild(script);
-        // script.src = './lib/stickyjs/sticky.js';
-        // script.async = true;
-    
-        // document.body.appendChild(script);
-       
-        // script.src = './lib/parallax/parallax.js';
-        // script.async = true;
-    
-        // document.body.appendChild(script);
-        // script.src = './lib/lockfixed/lockfixed.min.js';
-        // script.async = true;
-    
-        // document.body.appendChild(script);
-    }
-
-    search = () => {
-        let reDirect = <Redirect to={{
-            pathname: '/customer/search',
-            state: {
-                searchBox: this.state.searchBox
-            }
-        }}
-        />
-
-        this.setState({
-            reDirect: reDirect
-        })
-
 
     }
+
 
 
 
     render() {
 
-      console.log('Map data to be rendered',this.state.mapData)
+      console.log('Map data to be rendered',this.state.metricData.tCount)
+      uc = this.state.metricData.usersCount;
+      tc = this.state.metricData.tCount
+      let duration = this.state.metricData.duration
 
         return (<div>
 
@@ -202,9 +118,9 @@ class Welcome extends Component {
         </ul>
       </nav>
      
-      <nav class="nav social-nav pull-right d-none d-lg-inline">
+      {/* <nav class="nav social-nav pull-right d-none d-lg-inline">
         <a href="/login"><i class="fa fa-sign-in"></i></a>
-      </nav>
+      </nav> */}
     </div>
   </header>
 
@@ -248,26 +164,26 @@ class Welcome extends Component {
       <div class="row stats-row">
         <div class="stats-col text-center col-md-3 col-sm-6">
           <div class="circle">
-            <span class="stats-no" data-toggle="counter-up"><CountUp end={210}/></span> Customers
+            <span class="stats-no" data-toggle="counter-up">{uc}</span> Customers
           </div>
         </div>
 
         <div class="stats-col text-center col-md-3 col-sm-6">
           <div class="circle">
-            <span class="stats-no" data-toggle="counter-up"><CountUp end={430}/></span> Released Projects
+            <span class="stats-no" data-toggle="counter-up">{tc }</span> Meetings Recorded
           </div>
         </div>
 
         <div class="stats-col text-center col-md-3 col-sm-6">
           <div class="circle">
-            <span class="stats-no" data-toggle="counter-up"><CountUp end={50}/></span> Minutes of Meeting Recorded          </div>
+    <span class="stats-no" data-toggle="counter-up">{duration}</span> Minutes of Meeting Recorded          </div>
         </div>
-
+{/* 
         <div class="stats-col text-center col-md-3 col-sm-6">
           <div class="circle">
             <span class="stats-no" data-toggle="counter-up"><CountUp end={169}/></span> Hard Workers
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   </section>

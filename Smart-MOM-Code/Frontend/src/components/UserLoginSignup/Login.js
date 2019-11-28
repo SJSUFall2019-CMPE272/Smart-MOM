@@ -6,6 +6,7 @@ import axios from 'axios'
 import {Redirect} from 'react-router';
 import NotificationAlert from 'react-notification-alert';
 import "react-notification-alert/dist/animate.css";
+import '../navbar'
 
 var options = {};
 options = {
@@ -90,6 +91,8 @@ let data =  {username:this.state.emailsignin,password:this.state.passwordsignin}
      console.log("Status Code : ",response.data);
      if(response.status === 200){
          console.log('User Login success')
+         localStorage.setItem('username', response.data.responseMessage.username);
+         localStorage.setItem('name', response.data.responseMessage.name);
          this.setState({
            loginStatus:true
          })
@@ -182,18 +185,19 @@ console.log('Here in the country changeee')
             
 <div class="cont">
   <div class="form sign-in">
-    <h2>Welcome back,</h2>
+    {/* <h2 align="left">Welcome back,</h2> */}
     <label>
       <span>Email</span>
       <input type="email" name="emailsignin" onChange={this.valueChangedHandler} />
     </label>
+    <br/>
     <label>
       <span>Password</span>
       <input type="password" name=
       "passwordsignin" onChange={this.valueChangedHandler} />
     </label>
-    <p class="forgot-pass">Forgot password?</p>
-    <button type="button" class="submit" onClick={this.signin}>Sign In</button>
+    {/* <p class="forgot-pass">Forgot password?</p> */}
+    <button type="button" class="submit" onClick={this.signin} id="btnc">Sign In</button>
     {/* <button type="button" class="fb-btn">Connect with <span>facebook</span></button> */}
   </div>
   <div class="sub-cont">
@@ -212,20 +216,22 @@ console.log('Here in the country changeee')
       </div>
     </div>
     <div class="form sign-up">
-      <h2>Time to feel like home,</h2>
+      
       <label>
         <span>Name</span>
         <input type="text"  name="name" onChange={this.valueChangedHandler}/>
       </label>
+      <br/>
       <label>
         <span>Email</span>
         <input type="email" name="email" onChange={this.valueChangedHandler} />
       </label>
+      <br/>
       <label>
         <span>Password</span>
         <input type="password" name="password" onChange={this.valueChangedHandler} />
       </label>
-
+      <br/>
       <label>
         <span>Country</span>
         <br></br>
@@ -235,7 +241,7 @@ console.log('Here in the country changeee')
 </select>
           
            </label>
-      <button type="button" class="submit" onClick={this.signup} >Sign Up</button>
+      <button type="button" class="submit" onClick={this.signup} id="btnc" >Sign Up</button>
     </div>
   </div>
 </div>

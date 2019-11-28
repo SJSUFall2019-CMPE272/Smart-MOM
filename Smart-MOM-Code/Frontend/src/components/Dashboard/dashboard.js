@@ -5,9 +5,11 @@ import { rooturl } from '../../config';
 import axios from 'axios';
 import AudioAnalyser from "react-audio-analyser"
 import SpeechRecognition from './SpeechRecognition'
+import Button from 'react-bootstrap-button-loader';
 
 import Navbar from '../navbar'
 import './dashboard.css'
+import '../navbar'
 
 
 class Dashboard extends Component {
@@ -16,7 +18,8 @@ class Dashboard extends Component {
         super(props);
         this.state = {
             imagefile : "",
-            status: ""
+            status: "",
+            loading:false
         }
         this.storeTranscript = this.storeTranscript.bind(this);
         this.onChange = this.onChange.bind(this);
@@ -29,7 +32,7 @@ class Dashboard extends Component {
         this.setState({
             [e.target.name] : e.target.value
         })
-        console.log(this.state);
+        //console.log(this.state);
     }
 
     onChange = (e) => {
@@ -79,6 +82,8 @@ class Dashboard extends Component {
     }
 
     storeTranscript = () => {
+     
+
         var data = {
             username : "maaz@maaz.com",
             text: this.state.transcriptText,
@@ -92,7 +97,9 @@ class Dashboard extends Component {
 
             if(response.status === 200){
                 this.setState({
-                    transcriptStored: true
+                    transcriptStored: true,
+                    summary : response.data.responseMessage,
+                    summaryReceived : true
                 })
                 console.log(response.data.responseMessage)
             } else {
@@ -104,7 +111,9 @@ class Dashboard extends Component {
         })
     }
 
-    storeRecordingTranscript = () => {
+    storeRecordingTranscript = (e) => {
+        e.preventDefault();
+        console.log('Here in the store recording')
         if(!localStorage.getItem('transcript')){
             alert("Please save the summary before proceeding");
         } else {
@@ -112,16 +121,24 @@ class Dashboard extends Component {
             username : "maaz@maaz.com",
             text: localStorage.getItem('transcript'),
             topic: this.state.topic,
-            length: this.state.length
+            length: this.state.length,
+            duration: localStorage.getItem('meetingDuration')
             }
-
+            this.setState({
+                loading: true
+            })
+            // setTimeout(() => {
+            //     this.setState({loading: false});
+            //   }, 6000);
             axios.post(rooturl + "/createsummary", data)
             .then(response => {
                 console.log("Response Status: " + response.status);
-
+                this.setState({loading: false});
                 if(response.status === 200){
                     this.setState({
-                        transcriptStored: true
+                        transcriptStored: true,
+                        summary : response.data.responseMessage,
+                        summaryReceived : true
                     })
                     console.log(response.data.responseMessage)
                 } else {
@@ -162,6 +179,30 @@ class Dashboard extends Component {
                 console.log("error", err)
             }
         }
+
+        if(this.state.summaryReceived){
+            var jumbotronVisibility = {visibility: "visible"}
+
+            var topicName = this.state.topic;
+            var entities = this.state.summary.entities.map(entity => {
+                return (
+                    <span className='badge badge-info'>{entity}{' '}</span>
+                )
+            });
+
+            var sentiment = this.state.summary.sentiment;
+            
+            var summary = this.state.summary.text;
+            //var bullets = this.state.summary.text.split(".");
+            // var summary = bullets.map(line => {
+            //     return (
+            //     <li>{line}</li>
+            //     )
+            // })
+
+        } else {
+            var jumbotronVisibility = {visibility: "hidden"}
+        }
         return (
             <div>
                 <Navbar />
@@ -190,7 +231,7 @@ class Dashboard extends Component {
                                         </div>
                                     </div>
                                     <br></br>
-                                    <button type="submit" className="btn btn-primary">Upload File</button>
+                                    <button type="submit" className="btn btn-primary" id="btnc">Upload File</button>
                                 </form>
 
                             </div>
@@ -236,7 +277,8 @@ class Dashboard extends Component {
                                         </div>
                                     </div>
                                     <br></br>
-                                    <button type="submit" className="btn btn-primary">Generate Summary</button>
+                                    <Button loading={this.state.loading} type="submit" id="btnc">Generate Summary</Button>
+                                    {/* <button type="submit" className="btn btn-primary">Generate Summary</button> */}
                             </form>
                          
                             </div>
@@ -245,12 +287,15 @@ class Dashboard extends Component {
                     </div>
                         
                     <br></br>
-                    <div className="jumbotron" style={{visibility: "visible"}}>
-                        <h1 className="display-4">Hello, world!</h1>
-                        <p className="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+                    <div className="jumbotron" style={jumbotronVisibility}>
+                        <h1 className="display-5 text-center">{topicName}</h1>
+                        <p className="lead"><span className="btn btn-danger btn-sm">Entities:</span> { entities }</p>
                         <hr className="my-4"></hr>
-                        <p>It uses utility classNamees for typography and spacing to space content out within the larger container.</p>
-                        <a className="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+                        <p><span className="btn btn-danger btn-sm">Sentiment:</span> <span className='badge badge-primary'>{sentiment}</span></p>
+                        <hr className="my-4"></hr>
+                        <p>
+                            {summary}
+                        </p>
                     </div>
                 </div>
               

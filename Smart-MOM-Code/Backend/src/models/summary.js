@@ -14,6 +14,16 @@ Summary = new Schema({
         type: String,
         required : true
     },
+    sentiment: {
+        type: String,
+    },
+    topic: {
+        type: String,
+        required : true
+    },
+    entities: {
+        type: [],
+    },
     time : {
         type : Date,
         default : Date.now
