@@ -23,7 +23,8 @@ router.route('/updateprofile').post(upload.single('imglink'), function(req, res)
         "name": req.body.name,
         "username": req.body.username,
         "contact": req.body.contact,
-        "address": req.body.address
+        "address": req.body.address,
+        "country":req.body.country
     }
 
     if(req.file){
@@ -45,19 +46,19 @@ router.route('/updateprofile').post(upload.single('imglink'), function(req, res)
 })
 
 
-router.route('/getprofile').get(function(req, res){
+router.route('/getprofile').post(function(req, res){
 	var username = req.body.username;
     var msg = {
         username : username
 	}
-	
+	console.log(req.body);
 	Users.findOne({username: msg.username}, function(err,user){
         if (err) {
             console.log(err);
             console.log("User not found");
             res.status(400).json({responseMessage: 'Error Occurred'});
         } else {
-            //console.log("user:", user)
+            console.log("user:", user)
             console.log("User Profile Fetched Successful");
             res.status(200).json({responseMessage: user});
         } 
