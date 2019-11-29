@@ -4,7 +4,6 @@ import os
 import sys
 import urllib
 from urllib.request import urlretrieve
-import wget
 from bson.objectid import ObjectId
 import datetime
 from deepcorrect import DeepCorrect
@@ -59,11 +58,11 @@ def inference(_id, corrector, segmenter):
     topic = res['topic']
     username = res['username']
     length = res['length']
-    # body = preProcessTranscript(body, corrector)
+    body = preProcessTranscript(body, corrector)
     entities = entityRecog(_id)
     # topic = preProcessTranscript(topic)
     meeting_sentiment = sentiment(_id)
-    body = correct_sentence__test(body, corrector, segmenter)
+    # body = correct_sentence__test(body, corrector, segmenter)
     model = Summarizer()
     data = model.get_summary(body, topic)
     size = len(data)
@@ -110,7 +109,7 @@ def correct_sentence__test(data, corrector, segmenter):
     output_data = ''
     seg_data_arr = segmenter.segment_long(data)
     for seg_data in seg_data_arr:
-        print(seg_data)
+        # print(seg_data)
         if len(seg_data) > chunk_size:
             for chunk_str in chunkstring(seg_data, chunk_size):
                 punt_data = corrector.correct(
