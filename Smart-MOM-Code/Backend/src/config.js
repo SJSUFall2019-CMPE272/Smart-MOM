@@ -1,4 +1,4 @@
-module.exports = "http://a3f10b61.ngrok.io:3000/summarize";
+module.exports = "http://fa7dcafe.ngrok.io/summarize";
 //module.exports = "http://localhost:3001/summarize";
 
 
