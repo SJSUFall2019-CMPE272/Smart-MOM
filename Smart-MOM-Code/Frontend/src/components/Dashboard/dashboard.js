@@ -86,7 +86,7 @@ class Dashboard extends Component {
      
 
         var data = {
-            username : "maaz@maaz.com",
+            username : localStorage.getItem('username'),
             text: this.state.transcriptText,
             topic: this.state.topic,
             length: this.state.length
@@ -122,7 +122,7 @@ class Dashboard extends Component {
             alert("Please save the summary before proceeding");
         } else {
             var data = {
-            username : "maaz@maaz.com",
+            username : localStorage.getItem('username'),
             text: localStorage.getItem('transcript'),
             topic: this.state.topic,
             length: this.state.length,
