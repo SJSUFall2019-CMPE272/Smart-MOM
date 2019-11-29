@@ -168,7 +168,7 @@ console.log('Here in the country changeee')
       let showCountry = this.getCountries()
       let redirectVar = null;
         if(this.state.loginStatus){
-            redirectVar = <Redirect to= "/dashboard"/>
+            redirectVar = <Redirect to= "/mom/dashboard"/>
         }
         console.log('Redirected',redirectVar); 
         return (
