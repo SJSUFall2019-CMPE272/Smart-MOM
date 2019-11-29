@@ -207,11 +207,11 @@ class Welcome extends Component {
 
             <div>
               <h3>
-                  Custom Design
+                  Entity Recognition
                 </h3>
 
               <p>
-               Content to be added
+               Recognizes entities from the conversation
               </p>
             </div>
           </div>
@@ -227,11 +227,11 @@ class Welcome extends Component {
 
             <div>
               <h3>
-                  Responsive Layout
+                  Real Time Transcript 
                 </h3>
 
               <p>
-                Eque feugiat contentiones ei has. Id summo mundi explicari his, nec in maiorum scriptorem.
+                Displays real time transcript on the dashboard screen as the converation starts
               </p>
             </div>
           </div>
@@ -247,18 +247,18 @@ class Welcome extends Component {
 
             <div>
               <h3>
-                  Innovative Ideas
+                  Sentiment Analysis
                 </h3>
 
               <p>
-                Eque feugiat contentiones ei has. Id summo mundi explicari his, nec in maiorum scriptorem.
+                Sentiment Analysis of the meetings
               </p>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="row">
+      {/* <div class="row">
         <div class="feature-col col-lg-4 col-xs-12">
           <div class="card card-block text-center">
             <div>
@@ -318,12 +318,12 @@ class Welcome extends Component {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   </section>
 
 {/* Buy this Product */}
-<section class="cta">
+{/* <section class="cta">
     <div class="container">
       <div class="row">
         <div class="col-lg-9 col-sm-12 text-lg-left text-center">
@@ -341,9 +341,9 @@ class Welcome extends Component {
         </div>
       </div>
     </div>
-  </section>
+  </section> */}
 {/* Team  */}
-<section class="team" id="team">
+{/* <section class="team" id="team">
     <div class="container">
       <h2 class="text-center">
           Meet our team
@@ -447,7 +447,7 @@ class Welcome extends Component {
     </div>
     </div>
     </div>
-  </section>
+  </section> */}
   <h3 align="center">Our users across the World!!</h3>
   <VectorMap
         map={"world_mill"}
