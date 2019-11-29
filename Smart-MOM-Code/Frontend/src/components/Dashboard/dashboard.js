@@ -231,7 +231,8 @@ class Dashboard extends Component {
                                         </div>
                                     </div>
                                     <br></br>
-                                    <button type="submit" className="btn btn-primary" id="btnc">Upload File</button>
+                                    {/* <button type="submit" className="btn btn-primary" id="btnc">Upload File</button> */}
+                                    <Button loading={this.state.loading} type="submit" id="btnc">Generate Summary</Button>
                                 </form>
 
                             </div>
