@@ -1,8 +1,12 @@
 .navbar-custom {
     color: #FFFFFF;
     background-color:
-    rgb(25, 158, 184);;
+    rgb(25, 158, 184)!important;;
 }
+
+/* .sidenav---sidenav---_2tBP{
+    background: rgb(25, 158, 184) !important;
+  } */
 
 #btnc{
     background-color:

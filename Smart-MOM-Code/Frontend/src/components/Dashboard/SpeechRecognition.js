@@ -65,7 +65,7 @@ const Dictaphone = ({
       <br></br>
       <br/>
       <p><b><i>Real Time Generated Transcript</i></b></p>
-      <span>{transcript}</span>
+      <span>{transcript.substring(Math.max(transcript.length-100,0), transcript.length)}</span>
       <br/><br/>
       <button onClick={resetTranscript} className="btn btn-primary" id="btnc">Reset</button>
       <br/><br/>
