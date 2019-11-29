@@ -84,6 +84,10 @@ class SideNavBar extends Component {
                     </NavItem>
             </SideNav.Nav>
         </SideNav>;
+            if (!localStorage.getItem("username")) {
+                localStorage.clear();
+                redirectNav = <Redirect to="/" />;
+            }	
             return(<div>{redirectNav}
                 {navbarTag}
                 </div>)
