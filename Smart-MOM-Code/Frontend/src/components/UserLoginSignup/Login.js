@@ -86,7 +86,7 @@ class Login  extends Component{
 console.log('here in signin');
 let data =  {username:this.state.emailsignin,password:this.state.passwordsignin}
  //make a post request with the user data
- axios.post('http://localhost:3001/login',data)
+ axios.post('http://18.144.4.190:3001/login',data)
  .then(response => {
      console.log("Status Code : ",response.data);
      if(response.status === 200){
@@ -120,7 +120,7 @@ let data =  {username:this.state.emailsignin,password:this.state.passwordsignin}
 console.log('signup')
 let data =  {username:this.state.email,email:this.state.email,password:this.state.password,name:this.state.name,country:this.state.country}
  //make a post request with the user data
- axios.post('http://localhost:3001/signup',data)
+ axios.post('http://18.144.4.190:3001/signup',data)
  .then(response => {
      console.log("Status Code : ",response.data);
      if(response.status === 200){
