@@ -232,7 +232,7 @@ class Dashboard extends Component {
                                     </div>
                                     <br></br>
                                     {/* <button type="submit" className="btn btn-primary" id="btnc">Upload File</button> */}
-                                    <Button loading={this.state.loading} type="submit" id="btnc">Generate Summary</Button>
+                                    <Button loading={this.state.loading} type="submit" id="btnc">Upload File</Button>
                                 </form>
 
                             </div>
