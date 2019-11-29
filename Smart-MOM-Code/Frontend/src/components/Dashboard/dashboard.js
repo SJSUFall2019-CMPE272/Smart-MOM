@@ -208,7 +208,7 @@ class Dashboard extends Component {
                 {/* <Navbar /> */}
                 <br></br><br></br>
                 <div className="container">
-                
+               <h1 align="center">Hello, {localStorage.getItem("name")}</h1> 
                 <br></br>
                     <div className="card-deck">
                         <div className="card text-center border-primary">
