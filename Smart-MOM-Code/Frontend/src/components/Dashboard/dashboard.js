@@ -19,7 +19,8 @@ class Dashboard extends Component {
         this.state = {
             imagefile : "",
             status: "",
-            loading:false
+            loadingaudio:false,
+            loadingupload:false
         }
         this.storeTranscript = this.storeTranscript.bind(this);
         this.onChange = this.onChange.bind(this);
@@ -90,7 +91,9 @@ class Dashboard extends Component {
             topic: this.state.topic,
             length: this.state.length
         }
-
+        this.setState({
+            loadingupload: true
+        })
         axios.post(rooturl + "/createsummary", data)
         .then(response => {
             console.log("Response Status: " + response.status);
@@ -99,7 +102,8 @@ class Dashboard extends Component {
                 this.setState({
                     transcriptStored: true,
                     summary : response.data.responseMessage,
-                    summaryReceived : true
+                    summaryReceived : true,
+                    loadingupload:false
                 })
                 console.log(response.data.responseMessage)
             } else {
@@ -125,7 +129,7 @@ class Dashboard extends Component {
             duration: localStorage.getItem('meetingDuration')
             }
             this.setState({
-                loading: true
+                loadingaudio: true
             })
             // setTimeout(() => {
             //     this.setState({loading: false});
@@ -133,7 +137,7 @@ class Dashboard extends Component {
             axios.post(rooturl + "/createsummary", data)
             .then(response => {
                 console.log("Response Status: " + response.status);
-                this.setState({loading: false});
+                this.setState({loadingaudio: false});
                 if(response.status === 200){
                     this.setState({
                         transcriptStored: true,
@@ -232,7 +236,7 @@ class Dashboard extends Component {
                                     </div>
                                     <br></br>
                                     {/* <button type="submit" className="btn btn-primary" id="btnc">Upload File</button> */}
-                                    <Button loading={this.state.loading} type="submit" id="btnc">Upload File</Button>
+                                    <Button loading={this.state.loadingupload} type="submit" id="btnc1">Upload File</Button>
                                 </form>
 
                             </div>
@@ -278,7 +282,7 @@ class Dashboard extends Component {
                                         </div>
                                     </div>
                                     <br></br>
-                                    <Button loading={this.state.loading} type="submit" id="btnc">Generate Summary</Button>
+                                    <Button loading={this.state.loadingaudio} type="submit" id="btnc">Generate Summary</Button>
                                     {/* <button type="submit" className="btn btn-primary">Generate Summary</button> */}
                             </form>
                          
