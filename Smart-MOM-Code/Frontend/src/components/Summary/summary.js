@@ -94,7 +94,7 @@ class Summary extends Component {
 
         return (
             <div>
-                <Navbar />
+                {/* <Navbar /> */}
 
                 <div className="container">
                 <br></br><br></br><br></br><br></br>
