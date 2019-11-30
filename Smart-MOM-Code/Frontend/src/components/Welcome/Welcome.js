@@ -176,7 +176,7 @@ class Welcome extends Component {
 
         <div class="stats-col text-center col-md-3 col-sm-6">
           <div class="circle">
-    <span class="stats-no" data-toggle="counter-up">{duration}</span> Minutes of Meeting Recorded          </div>
+    <span class="stats-no" data-toggle="counter-up">37</span> Minutes of Meeting Recorded          </div>
         </div>
 {/* 
         <div class="stats-col text-center col-md-3 col-sm-6">
