@@ -166,7 +166,7 @@ class Profile extends Component {
                                 <p className="card-text">Welcome to your profile</p>
                                 
                                 <br></br><br></br>
-                                <form className="form-horizontal text-center">
+                                <form className="form-horizontal text-center" align="center">
 
                                     <div className="input-group mb-3 w-50">
                                         <div className="input-group-prepend">
