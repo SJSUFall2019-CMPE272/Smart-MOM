@@ -14,8 +14,8 @@ global segmenter
 def dataPreProcessModel():
     print("Inside dataPreProcessModel")
     global corrector
-    corrector = DeepCorrect('/Users/Amitgarg/Documents/SJSU/272-Ranjan/Smart-MOM/model_params/deeppunct_params_en',
-                            '/Users/Amitgarg/Documents/SJSU/272-Ranjan/Smart-MOM/model_params/deeppunct_checkpoint_google_news')
+    corrector = DeepCorrect('model_params/deeppunct_params_en',
+                            'model_params/deeppunct_checkpoint_google_news')
     global segmenter
     segmenter = DeepSegment('en')
 
