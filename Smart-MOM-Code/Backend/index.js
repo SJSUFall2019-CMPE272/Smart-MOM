@@ -1,5 +1,5 @@
 const port = process.env.PORT || 3010;
-const rooturl = "http://3.17.152.109:8000";
+const rooturl = "http://3.17.152.109:3006";
 //const rooturl = "";
 const multer = require('multer');
 const path = require('path');
