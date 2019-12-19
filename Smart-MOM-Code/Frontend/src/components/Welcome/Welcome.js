@@ -49,7 +49,7 @@ class Welcome extends Component {
 
     componentWillMount = ()=>{
         const data = {}
-        axios.get('http://18.144.4.190:3001/getWelcomeData')
+        axios.get('http://3.17.152.109:3010/getWelcomeData')
        .then(response => {
            console.log("Status Code in 200 : ",response.data.welocomeData);
          console.log('here 1')
