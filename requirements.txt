@@ -2,7 +2,7 @@ deepcorrect==1.0.5
 deepsegment==2.3.0
 Flask==1.1.1
 nltk==3.4.5
-numpy==1.17.2
+numpy==1.22.0
 pandas==0.23.4
 Pillow==5.4.1
 pylint==2.4.3
